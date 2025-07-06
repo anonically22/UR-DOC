@@ -1,0 +1,94 @@
+{
+  "notifications": [
+    {
+      "id": "1",
+      "user_id": "1",
+      "type": "consultation",
+      "title": "Consultation Response",
+      "message": "Dr. Jane Smith has responded to your consultation request about chest pain.",
+      "is_read": false,
+      "created_at": "2024-01-15T11:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "user_id": "4",
+      "message": "Appointment Reminder",
+      "title": "Upcoming Appointment",
+      "type": "appointment",
+      "is_read": false,
+      "created_at": "2024-01-15T09:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "user_id": "2",
+      "type": "consultation",
+      "title": "New Consultation Request",
+      "message": "Sarah Johnson has requested a consultation for dermatology concerns.",
+      "is_read": true,
+      "created_at": "2024-01-15T08:30:00.000Z"
+    },
+    {
+      "id": "4",
+      "user_id": "7",
+      "type": "prescription",
+      "title": "Prescription Ready",
+      "message": "Your prescription for Acetaminophen is ready for pickup.",
+      "is_read": false,
+      "created_at": "2024-01-15T07:15:00.000Z"
+    },
+    {
+      "id": "5",
+      "user_id": "8",
+      "type": "consultation",
+      "title": "Consultation Scheduled",
+      "message": "Your consultation with Dr. David Miller has been scheduled for January 16th at 2:30 PM.",
+      "is_read": true,
+      "created_at": "2024-01-14T16:20:00.000Z"
+    },
+    {
+      "id": "6",
+      "user_id": "3",
+      "type": "system",
+      "title": "System Update",
+      "message": "New features have been added to the UR DOC platform. Check them out!",
+      "is_read": false,
+      "created_at": "2024-01-14T12:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "user_id": "5",
+      "type": "consultation",
+      "title": "New Consultation Request",
+      "message": "Robert Wilson has requested a consultation for skin rash.",
+      "is_read": false,
+      "created_at": "2024-01-14T10:15:00.000Z"
+    },
+    {
+      "id": "8",
+      "user_id": "6",
+      "type": "consultation",
+      "title": "New Consultation Request",
+      "message": "Lisa Anderson has requested a consultation for pediatric concerns.",
+      "is_read": true,
+      "created_at": "2024-01-14T08:45:00.000Z"
+    },
+    {
+      "id": "9",
+      "user_id": "1",
+      "type": "prescription",
+      "title": "Prescription Refill",
+      "message": "Your prescription for Lisinopril is due for a refill.",
+      "is_read": false,
+      "created_at": "2024-01-13T15:30:00.000Z"
+    },
+    {
+      "id": "10",
+      "user_id": "4",
+      "type": "consultation",
+      "title": "Consultation Completed",
+      "message": "Your consultation with Dr. Michael Brown has been completed. Check your dashboard for details.",
+      "is_read": true,
+      "created_at": "2024-01-13T14:20:00.000Z"
+    }
+  ]
+} 

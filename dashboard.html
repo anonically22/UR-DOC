@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - UR DOC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-left img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .header-left h1 {
+            color: #333;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .user-role {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            height: calc(100vh - 140px);
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 10px;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .appointments-list {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .appointment-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .appointment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .appointment-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .appointment-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-upcoming {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .appointment-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-form {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+            
+            .main-content {
+                order: 1;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <img src="assets/logo.jpg" alt="UR DOC Logo">
+                <h1>UR DOC Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <p class="user-name" id="userName">John Doe</p>
+                    <p class="user-role" id="userRole">Patient</p>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="sidebar">
+                <ul class="nav-menu">
+                    <li><a href="#overview" class="nav-link active" data-section="overview">📊 Overview</a></li>
+                    <li><a href="#consultations" class="nav-link" data-section="consultations">💬 Consultations</a></li>
+                    <li><a href="#prescriptions" class="nav-link" data-section="prescriptions">📄 Prescriptions</a></li>
+                    <li><a href="#profile" class="nav-link" data-section="profile">👤 Profile</a></li>
+                    <li class="patient-only"><a href="#request-consultation" class="nav-link" data-section="request-consultation">➕ Request Consultation</a></li>
+                    <li class="patient-only"><a href="#upload-prescription" class="nav-link" data-section="upload-prescription">📤 Upload Prescription</a></li>
+                    <li class="doctor-only"><a href="#patient-requests" class="nav-link" data-section="patient-requests">👥 Patient Requests</a></li>
+                    <li class="doctor-only"><a href="#schedule" class="nav-link" data-section="schedule">⏰ Schedule</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <!-- Overview Section -->
+                <div id="overview" class="section active">
+                    <h2>Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number" id="totalConsultations">0</span>
+                            <span class="stat-label">Total Consultations</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="pendingConsultations">0</span>
+                            <span class="stat-label">Pending Requests</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="completedConsultations">0</span>
+                            <span class="stat-label">Completed</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" id="uploadedPrescriptions">0</span>
+                            <span class="stat-label">Prescriptions</span>
+                        </div>
+                    </div>
+                    <div class="appointments-list">
+                        <h3>Recent Appointments</h3>
+                        <div id="recentAppointments">
+                            <!-- Appointments will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consultations Section -->
+                <div id="consultations" class="section">
+                    <h2>My Consultations</h2>
+                    <div id="consultationsList">
+                        <!-- Consultations will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Prescriptions Section -->
+                <div id="prescriptions" class="section">
+                    <h2>My Prescriptions</h2>
+                    <div id="prescriptionsList">
+                        <!-- Prescriptions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div id="profile" class="section">
+                    <h2>Profile Settings</h2>
+                    <form class="profile-form" id="profileForm">
+                        <div class="form-group">
+                            <label for="profileFirstName">First Name</label>
+                            <input type="text" id="profileFirstName" name="firstName" value="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileLastName">Last Name</label>
+                            <input type="text" id="profileLastName" name="lastName" value="Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" name="email" value="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="profilePhone">Phone</label>
+                            <input type="tel" id="profilePhone" name="phone" value="+1234567890">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileAddress">Address</label>
+                            <textarea id="profileAddress" name="address" rows="3">123 Main St, City, State</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+
+                <!-- Request Consultation Section (Patient Only) -->
+                <div id="request-consultation" class="section">
+                    <h2>Request New Consultation</h2>
+                    <form id="consultationForm" class="profile-form">
+                        <div class="form-group">
+                            <label for="consultationDoctor">Select Doctor</label>
+                            <select id="consultationDoctor" name="doctor" required>
+                                <option value="">Choose a doctor</option>
+                                <option value="dr_smith">Dr. Smith (Cardiology)</option>
+                                <option value="dr_johnson">Dr. Johnson (Dermatology)</option>
+                                <option value="dr_williams">Dr. Williams (Neurology)</option>
+                                <option value="dr_brown">Dr. Brown (Orthopedics)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="consultationType">Consultation Type</label>
+                            <select id="consultationType" name="type" required>
+                                <option value="">Select type</option>
+                                <option value="general">General Consultation</option>
+                                <option value="prescription_review">Prescription Review</option>
+                                <option value="follow_up">Follow-up Consultation</option>
+                                <option value="emergency">Emergency Consultation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="consultationReason">Reason for Consultation</label>
+                            <textarea id="consultationReason" name="reason" rows="4" placeholder="Please describe your symptoms or reason for consultation"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="consultationUrgency">Urgency Level</label>
+                            <select id="consultationUrgency" name="urgency" required>
+                                <option value="">Select urgency</option>
+                                <option value="low">Low - Can wait 24-48 hours</option>
+                                <option value="medium">Medium - Can wait 12-24 hours</option>
+                                <option value="high">High - Need within 6-12 hours</option>
+                                <option value="urgent">Urgent - Need immediately</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Request Consultation</button>
+                    </form>
+                </div>
+
+                <!-- Upload Prescription Section (Patient Only) -->
+                <div id="upload-prescription" class="section">
+                    <h2>Upload Prescription</h2>
+                    <form id="prescriptionForm" class="profile-form">
+                        <div class="form-group">
+                            <label for="prescriptionTitle">Prescription Title</label>
+                            <input type="text" id="prescriptionTitle" name="title" placeholder="e.g., Blood Pressure Medication" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prescriptionDate">Prescription Date</label>
+                            <input type="date" id="prescriptionDate" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prescriptionFile">Upload Prescription File</label>
+                            <input type="file" id="prescriptionFile" name="file" accept=".pdf,.jpg,.jpeg,.png" required>
+                            <small>Accepted formats: PDF, JPG, JPEG, PNG (Max 5MB)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="prescriptionNotes">Additional Notes</label>
+                            <textarea id="prescriptionNotes" name="notes" rows="3" placeholder="Any additional information about the prescription"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Prescription</button>
+                    </form>
+                </div>
+
+                <!-- Patient Requests Section (Doctor Only) -->
+                <div id="patient-requests" class="section">
+                    <h2>Patient Consultation Requests</h2>
+                    <div id="patientRequestsList">
+                        <!-- Patient requests will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Schedule Section (Doctor Only) -->
+                <div id="schedule" class="section">
+                    <h2>My Schedule</h2>
+                    <div id="scheduleList">
+                        <!-- Schedule will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get role from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const userRole = urlParams.get('role') || 'patient';
+        
+        // Set user info based on role
+        document.getElementById('userRole').textContent = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+        
+        // Show/hide role-specific menu items
+        if (userRole === 'patient') {
+            document.querySelectorAll('.doctor-only').forEach(el => el.style.display = 'none');
+        } else if (userRole === 'doctor') {
+            document.querySelectorAll('.patient-only').forEach(el => el.style.display = 'none');
+        }
+
+        // Navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Sample data
+        const sampleConsultations = [
+            {
+                id: 1,
+                title: 'Cardiology Consultation',
+                doctor: 'Dr. Smith',
+                type: 'General Consultation',
+                date: '2024-01-15',
+                status: 'pending',
+                urgency: 'medium'
+            },
+            {
+                id: 2,
+                title: 'Prescription Review',
+                doctor: 'Dr. Johnson',
+                type: 'Prescription Review',
+                date: '2024-01-10',
+                status: 'completed',
+                urgency: 'low'
+            },
+            {
+                id: 3,
+                title: 'Follow-up Consultation',
+                doctor: 'Dr. Williams',
+                type: 'Follow-up Consultation',
+                date: '2024-01-08',
+                status: 'cancelled',
+                urgency: 'high'
+            }
+        ];
+
+        const samplePrescriptions = [
+            {
+                id: 1,
+                title: 'Blood Pressure Medication',
+                date: '2024-01-12',
+                status: 'uploaded',
+                file: 'bp_medication.pdf'
+            },
+            {
+                id: 2,
+                title: 'Diabetes Prescription',
+                date: '2024-01-08',
+                status: 'reviewed',
+                file: 'diabetes_rx.pdf'
+            },
+            {
+                id: 3,
+                title: 'Pain Management',
+                date: '2024-01-05',
+                status: 'uploaded',
+                file: 'pain_medication.pdf'
+            }
+        ];
+
+        const samplePatientRequests = [
+            {
+                id: 1,
+                patient: 'Alice Johnson',
+                type: 'General Consultation',
+                urgency: 'medium',
+                date: '2024-01-15',
+                status: 'pending'
+            },
+            {
+                id: 2,
+                patient: 'Bob Smith',
+                type: 'Prescription Review',
+                urgency: 'low',
+                date: '2024-01-14',
+                status: 'accepted'
+            },
+            {
+                id: 3,
+                patient: 'Carol Davis',
+                type: 'Emergency Consultation',
+                urgency: 'urgent',
+                date: '2024-01-15',
+                status: 'pending'
+            }
+        ];
+
+        // Load consultations
+        function loadConsultations() {
+            const consultationsList = document.getElementById('consultationsList');
+            const recentConsultations = document.getElementById('recentConsultations');
+            
+            let consultationsHTML = '';
+            let recentHTML = '';
+            
+            sampleConsultations.forEach(consultation => {
+                const consultationHTML = `
+                    <div class="appointment-item">
+                        <div class="appointment-header">
+                            <span class="appointment-title">${consultation.title}</span>
+                            <span class="appointment-status status-${consultation.status}">${consultation.status}</span>
+                        </div>
+                        <div class="appointment-details">
+                            <p><strong>Doctor:</strong> ${consultation.doctor}</p>
+                            <p><strong>Type:</strong> ${consultation.type}</p>
+                            <p><strong>Date:</strong> ${consultation.date}</p>
+                            <p><strong>Urgency:</strong> ${consultation.urgency}</p>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            ${consultation.status === 'pending' ? 
+                                `<button class="btn btn-danger" onclick="cancelConsultation(${consultation.id})">Cancel</button>` : 
+                                ''
+                            }
+                        </div>
+                    </div>
+                `;
+                
+                consultationsHTML += consultationHTML;
+                
+                if (recentHTML === '') {
+                    recentHTML = consultationHTML;
+                }
+            });
+            
+            consultationsList.innerHTML = consultationsHTML;
+            if (recentConsultations) {
+                recentConsultations.innerHTML = recentHTML;
+            }
+        }
+
+        // Load prescriptions
+        function loadPrescriptions() {
+            const prescriptionsList = document.getElementById('prescriptionsList');
+            let prescriptionsHTML = '';
+            
+            samplePrescriptions.forEach(prescription => {
+                prescriptionsHTML += `
+                    <div class="appointment-item">
+                        <div class="appointment-header">
+                            <span class="appointment-title">${prescription.title}</span>
+                            <span class="appointment-status status-${prescription.status}">${prescription.status}</span>
+                        </div>
+                        <div class="appointment-details">
+                            <p><strong>Date:</strong> ${prescription.date}</p>
+                            <p><strong>File:</strong> ${prescription.file}</p>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button class="btn btn-primary" onclick="viewPrescription(${prescription.id})">View</button>
+                            <button class="btn btn-secondary" onclick="downloadPrescription(${prescription.id})">Download</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            prescriptionsList.innerHTML = prescriptionsHTML;
+        }
+
+        // Load patient requests (for doctors)
+        function loadPatientRequests() {
+            const patientRequestsList = document.getElementById('patientRequestsList');
+            let requestsHTML = '';
+            
+            samplePatientRequests.forEach(request => {
+                requestsHTML += `
+                    <div class="appointment-item">
+                        <div class="appointment-header">
+                            <span class="appointment-title">${request.patient}</span>
+                            <span class="appointment-status status-${request.status}">${request.status}</span>
+                        </div>
+                        <div class="appointment-details">
+                            <p><strong>Type:</strong> ${request.type}</p>
+                            <p><strong>Urgency:</strong> ${request.urgency}</p>
+                            <p><strong>Date:</strong> ${request.date}</p>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            ${request.status === 'pending' ? 
+                                `<button class="btn btn-success" onclick="acceptRequest(${request.id})">Accept</button>
+                                 <button class="btn btn-danger" onclick="rejectRequest(${request.id})">Reject</button>` : 
+                                ''
+                            }
+                            <button class="btn btn-primary" onclick="viewRequest(${request.id})">View Details</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            patientRequestsList.innerHTML = requestsHTML;
+        }
+
+        // Load schedule (for doctors)
+        function loadSchedule() {
+            const scheduleList = document.getElementById('scheduleList');
+            const sampleSchedule = [
+                { date: '2024-01-15', time: '09:00', patient: 'Alice Johnson', type: 'Follow-up' },
+                { date: '2024-01-15', time: '10:00', patient: 'Bob Smith', type: 'Consultation' },
+                { date: '2024-01-15', time: '14:00', patient: 'Carol Davis', type: 'Check-up' }
+            ];
+            
+            let scheduleHTML = '';
+            sampleSchedule.forEach(appointment => {
+                scheduleHTML += `
+                    <div class="appointment-item">
+                        <div class="appointment-header">
+                            <span class="appointment-title">${appointment.patient}</span>
+                            <span class="appointment-status status-upcoming">${appointment.type}</span>
+                        </div>
+                        <div class="appointment-details">
+                            <p><strong>Date:</strong> ${appointment.date}</p>
+                            <p><strong>Time:</strong> ${appointment.time}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            scheduleList.innerHTML = scheduleHTML;
+        }
+
+        // Form submissions
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Profile updated successfully!');
+        });
+
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Consultation request sent successfully!');
+            this.reset();
+        });
+
+        document.getElementById('prescriptionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Prescription uploaded successfully!');
+            this.reset();
+        });
+
+        // Cancel consultation
+        function cancelConsultation(id) {
+            if (confirm('Are you sure you want to cancel this consultation?')) {
+                alert('Consultation cancelled successfully!');
+                loadConsultations(); // Reload to reflect changes
+            }
+        }
+
+        // Prescription functions
+        function viewPrescription(id) {
+            alert(`Viewing prescription with ID: ${id}`);
+        }
+
+        function downloadPrescription(id) {
+            alert(`Downloading prescription with ID: ${id}`);
+        }
+
+        // Patient request functions (for doctors)
+        function acceptRequest(id) {
+            if (confirm('Accept this consultation request?')) {
+                alert(`Request ${id} accepted successfully!`);
+                loadPatientRequests();
+            }
+        }
+
+        function rejectRequest(id) {
+            if (confirm('Reject this consultation request?')) {
+                alert(`Request ${id} rejected successfully!`);
+                loadPatientRequests();
+            }
+        }
+
+        function viewRequest(id) {
+            alert(`Viewing request details for ID: ${id}`);
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalConsultations').textContent = sampleConsultations.length;
+            document.getElementById('pendingConsultations').textContent = sampleConsultations.filter(c => c.status === 'pending').length;
+            document.getElementById('completedConsultations').textContent = sampleConsultations.filter(c => c.status === 'completed').length;
+            document.getElementById('uploadedPrescriptions').textContent = samplePrescriptions.length;
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize dashboard
+        loadConsultations();
+        loadPrescriptions();
+        updateStats();
+        if (userRole === 'doctor') {
+            loadPatientRequests();
+            loadSchedule();
+        }
+    </script>
+</body>
+</html> 

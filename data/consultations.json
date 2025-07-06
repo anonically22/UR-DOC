@@ -1,0 +1,108 @@
+{
+  "consultations": [
+    {
+      "id": "1",
+      "patient_id": "1",
+      "doctor_id": "2",
+      "type": "general",
+      "urgency": "normal",
+      "description": "I've been experiencing chest pain for the past few days. It's not severe but it's concerning me.",
+      "preferred_date": "2024-01-20T10:00:00.000Z",
+      "status": "completed",
+      "response": "Based on your symptoms, I recommend scheduling a stress test. The chest pain could be related to stress or minor heart issues. Please avoid strenuous activities until we can run further tests.",
+      "created_at": "2024-01-10T14:30:00.000Z",
+      "updated_at": "2024-01-15T11:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "patient_id": "4",
+      "doctor_id": "5",
+      "type": "dermatology",
+      "urgency": "high",
+      "description": "I have a suspicious mole on my back that has changed color and size recently. I'm worried it might be skin cancer.",
+      "preferred_date": "2024-01-18T15:00:00.000Z",
+      "status": "scheduled",
+      "response": null,
+      "created_at": "2024-01-12T09:15:00.000Z",
+      "updated_at": "2024-01-12T09:15:00.000Z"
+    },
+    {
+      "id": "3",
+      "patient_id": "7",
+      "doctor_id": "6",
+      "type": "pediatrics",
+      "urgency": "normal",
+      "description": "My 8-year-old daughter has been complaining of headaches for the past week. She also seems more tired than usual.",
+      "preferred_date": "2024-01-22T13:00:00.000Z",
+      "status": "pending",
+      "response": null,
+      "created_at": "2024-01-13T16:45:00.000Z",
+      "updated_at": "2024-01-13T16:45:00.000Z"
+    },
+    {
+      "id": "4",
+      "patient_id": "8",
+      "doctor_id": "9",
+      "type": "neurology",
+      "urgency": "high",
+      "description": "I've been experiencing severe migraines with visual disturbances. The pain is debilitating and affecting my daily life.",
+      "preferred_date": "2024-01-16T14:30:00.000Z",
+      "status": "scheduled",
+      "response": null,
+      "created_at": "2024-01-14T10:20:00.000Z",
+      "updated_at": "2024-01-14T10:20:00.000Z"
+    },
+    {
+      "id": "5",
+      "patient_id": "1",
+      "doctor_id": "10",
+      "type": "orthopedics",
+      "urgency": "normal",
+      "description": "I injured my knee while playing basketball. There's swelling and pain when I try to walk or bend it.",
+      "preferred_date": "2024-01-25T11:00:00.000Z",
+      "status": "pending",
+      "response": null,
+      "created_at": "2024-01-15T08:30:00.000Z",
+      "updated_at": "2024-01-15T08:30:00.000Z"
+    },
+    {
+      "id": "6",
+      "patient_id": "4",
+      "doctor_id": "2",
+      "type": "cardiology",
+      "urgency": "normal",
+      "description": "Follow-up consultation after my recent heart surgery. I'm feeling much better but want to discuss my recovery progress.",
+      "preferred_date": "2024-01-30T09:00:00.000Z",
+      "status": "scheduled",
+      "response": null,
+      "created_at": "2024-01-15T12:00:00.000Z",
+      "updated_at": "2024-01-15T12:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "patient_id": "7",
+      "doctor_id": "5",
+      "type": "dermatology",
+      "urgency": "normal",
+      "description": "I have a persistent rash on my arms that doesn't seem to go away with over-the-counter creams.",
+      "preferred_date": "2024-01-28T16:00:00.000Z",
+      "status": "pending",
+      "response": null,
+      "created_at": "2024-01-15T14:15:00.000Z",
+      "updated_at": "2024-01-15T14:15:00.000Z"
+    },
+    {
+      "id": "8",
+      "patient_id": "8",
+      "doctor_id": "6",
+      "type": "pediatrics",
+      "urgency": "high",
+      "description": "My 3-year-old son has a high fever (103°F) and is refusing to eat or drink anything.",
+      "preferred_date": "2024-01-16T10:00:00.000Z",
+      "status": "scheduled",
+      "response": null,
+      "created_at": "2024-01-15T17:30:00.000Z",
+      "updated_at": "2024-01-15T17:30:00.000Z"
+    }
+  ]
+} 
